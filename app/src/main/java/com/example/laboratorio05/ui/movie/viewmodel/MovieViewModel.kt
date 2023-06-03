@@ -24,11 +24,12 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
     suspend fun getMovies() = repository.getMovies()
 
     // TODO: complete getMovieWithActorById function
-    suspend fun getMovieWithActorById(movieId: Int) = null
+    suspend fun getMovieWithActorById(movieId: Int) = repository.getMoviesWithActors(movieId)
 
     private fun addMovies(movie: MovieModel) {
         viewModelScope.launch {
             // TODO: save movie in the database
+            repository.addMovies(movie)
         }
     }
 
@@ -39,7 +40,6 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
         }
 
         val movie = MovieModel(
-            0, // TODO: This value must not be set here!
             name = name.value!!,
             category = category.value!!,
             description = description.value!!,
